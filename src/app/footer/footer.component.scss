@@ -1,0 +1,29 @@
+.footer-icons-fb {
+    color: #3b5998;
+    transition: .2s;
+}
+
+.footer-icons-fb:hover {
+    color: #233865;
+}
+
+.footer-icons-wh {
+    color: #25d366;
+    transition: .2s;
+}
+
+.footer-icons-wh:hover {
+    color: #18843f;
+}
+
+.boletos-div {
+
+    background-image: linear-gradient(to right, #43e97b 0%, #38f9d7 100%);
+    color: white;
+    transition: 1s;
+}
+
+.boletos-div:hover {
+    background-image: linear-gradient(to left, #43e97b 0%, #38f9d7 100%);
+
+}

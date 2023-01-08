@@ -3,7 +3,9 @@
 
 <div class="container-fluid">
   <div class="row">
-    <h2 class="text-center p-5"><b>Honda CB190R edición Repsol</b></h2>
+    <h2 class="text-center p-5" id="articulo">
+      <b>Honda CB190R edición Repsol 2018</b>
+    </h2>
   </div>
   <div class="row">
     <img
@@ -14,7 +16,13 @@
     />
   </div>
   <div class="row">
-    <h3 class="text-center p-2"><b>Fecha del sorteo</b></h3>
+    <h3 class="text-center p-2">
+      <b>Fecha a definir con el 70% de números vendidos</b>
+    </h3>
+    <h4 class="text-center p-2" style="color: rgb(190, 163, 14)">
+      <b>¡Casco de fibra de carbono como bono pronto pago!</b>
+    </h4>
+    <h4></h4>
   </div>
 
   <div class="row">
@@ -39,11 +47,356 @@
     </div>
   </div>
 </div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12 text-center normal-text mt-5">
+      <b>Boleto disponible: </b>
+      <a><i class="fas fa-square" style="color: #1b7400"></i></a>
+    </div>
+  </div>
+</div>
+<!-- Button trigger modal -->
+<div
+  class="container-fluid text-center p-5"
+  style="max-width: 720px; display: block"
+>
+  <div class="row pt-3 pb-3">
+    <div class="col-auto" *ngFor="let boleto of boletos; index as i">
+      <button
+        class="boleto-btn btn-block btn"
+        data-bs-toggle="modal"
+        data-bs-target="#staticBackdrop"
+        (click)="setBoleto(boleto.id)"
+        [disabled]="boleto.celular"
+      >
+        {{ boleto.id }}
+      </button>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="staticBackdrop"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1
+          class="modal-title fs-5"
+          id="staticBackdropLabel"
+          style="width: 150%"
+        >
+          ¡Aparte su boleto!
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="contacto" novalidate>
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-12 mt-2">
+                <input
+                  class="form-control"
+                  type="number"
+                  required
+                  formControlName="whatsapp"
+                  placeholder="Número de Whatsapp (10 digitos)"
+                  name="whatsapp"
+                />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div
+                  *ngIf="contacto.get('whatsapp')?.touched && (contacto.get('whatsapp')?.errors?.['min'] || contacto.get('whatsapp')?.errors?.['max'])"
+                  class="alert alert-danger mt-2"
+                  style="font-size: 12px; height: 60%"
+                >
+                  Deben ser 10 dígitos
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 col-xs-6 col-sm-6 mt-2">
+                <input
+                  type="text"
+                  class="form-control"
+                  required
+                  formControlName="nombre"
+                  placeholder="Nombre(s)"
+                  name="nombre"
+                />
+              </div>
+              <div class="col-md-6 col-xs-6 col-sm-6 mt-2">
+                <input
+                  type="text"
+                  class="form-control"
+                  required
+                  formControlName="apellido"
+                  placeholder="Apellido(s)"
+                  name="apellido"
+                />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 col-xs-6 col-sm-6 mt-2">
+                <div
+                  *ngIf="contacto.get('nombre')?.touched && contacto.get('nombre')?.errors?.['required']"
+                  class="alert alert-danger"
+                  role="alert"
+                  style="font-size: 12px; height: 60%"
+                >
+                  Favor de ingresar su nombre
+                </div>
+              </div>
+              <div class="col-md-6 col-xs-6 col-sm-6 mt-2">
+                <div
+                  *ngIf="contacto.get('apellido')?.touched && contacto.get('apellido')?.errors?.['required']"
+                  class="alert alert-danger"
+                  style="font-size: 12px; height: 60%"
+                >
+                  Favor de ingresar su apellido
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 col-xs-6 col-sm-6 mt-2">
+                <input
+                  class="form-control"
+                  type="text"
+                  required
+                  formControlName="municipio_cd"
+                  placeholder="Municipio/Ciudad"
+                  name="municipio_cd"
+                />
+              </div>
+              <div class="col-md-6 col-xs-6 col-sm-6 mt-2">
+                <select
+                  class="form-select"
+                  aria-label="Estado"
+                  formControlName="estado"
+                >
+                  <option value="">Seleccione su estado</option>
+                  <option value="MEX">Estado de México</option>
+                  <option value="AGS">Aguascalientes</option>
+                  <option value="BCN">Baja California</option>
+                  <option value="BCS">Baja California Sur</option>
+                  <option value="CAM">Campeche</option>
+                  <option value="CHP">Chiapas</option>
+                  <option value="CHI">Chihuahua</option>
+                  <option value="COA">Coahuila</option>
+                  <option value="COL">Colima</option>
+                  <option value="DUR">Durango</option>
+                  <option value="GTO">Guanajuato</option>
+                  <option value="GRO">Guerrero</option>
+                  <option value="HGO">Hidalgo</option>
+                  <option value="JAL">Jalisco</option>
+                  <option value="MEX">México</option>
+                  <option value="MIC">Michoacán</option>
+                  <option value="MOR">Morelos</option>
+                  <option value="NAY">Nayarit</option>
+                  <option value="NLE">Nuevo León</option>
+                  <option value="OAX">Oaxaca</option>
+                  <option value="PUE">Puebla</option>
+                  <option value="QRO">Querétaro</option>
+                  <option value="ROO">Quintana Roo</option>
+                  <option value="SLP">San Luis Potosí</option>
+                  <option value="SIN">Sinaloa</option>
+                  <option value="SON">Sonora</option>
+                  <option value="TAB">Tabasco</option>
+                  <option value="TAM">Tamaulipas</option>
+                  <option value="TLX">Tlaxcala</option>
+                  <option value="VER">Veracruz</option>
+                  <option value="YUC">Yucatán</option>
+                  <option value="ZAC">Zacatecas</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 col-xs-6 col-sm-6 mt-2">
+                <div
+                  *ngIf="contacto.get('municipio_cd')?.touched && contacto.get('municipio_cd')?.errors?.['required']"
+                  class="alert alert-danger"
+                  role="alert"
+                  style="font-size: 12px; height: 60%"
+                >
+                  Favor de ingresar su municipio
+                </div>
+              </div>
+              <div class="col-md-6 col-xs-6 col-sm-6 mt-2">
+                <div
+                  *ngIf="contacto.get('estado')?.touched && contacto.get('estado')?.errors?.['maxlength']"
+                  class="alert alert-danger"
+                  style="font-size: 12px; height: 60%"
+                >
+                  Seleccionar estado válido
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="submit"
+          class="btn boleto-btn btn-lg"
+          [disabled]="contacto.invalid"
+          style="width: 150%"
+          (click)="onSubmit()"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        >
+          Aceptar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="container-fluid">
   <div class="row shadow p-3 mb-5 bg-body rounded">
     <div class="col-md-12">
-      <h1 class="text-center p-3">Sobre nosotros</h1>
+      <h1 class="text-center p-3" id="metodos-de-pago">Métodos de pago</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <p class="normal-text text-center">
+        <b>Cuenta para Transferencia o depósitos BBVA Bancomer/Débito</b><br />
+        4152 3139 6386 7994 <br />
+        José Carlos Gálvez Cantúa
+      </p>
+    </div>
+    <div class="col-md-6 text-center">
+      <img
+        class="img-fluid"
+        src="../assets/bbva tarjeta.jpeg"
+        style="border-radius: 20px; width: 75%"
+        alt="Sorteos LS"
+      />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="col-auto mt-5 text-center">
+        <img
+          class="img-fluid"
+          src="../assets/oxxo.png"
+          style="border-radius: 20px; width: 75%"
+          alt="Sorteos LS"
+        />
+      </div>
+    </div>
+    <div class="col-md-6 mt-5">
+      <p class="normal-text text-center">
+        <b>Cuenta para Depósitos en Oxxo/ Seven 7 Eleven</b> <br />
+        4169 1608 2931 3429 <br />
+        Bancoppel-Debito Jose Carlos Galvez Cantúa
+      </p>
+      <div class="col-auto text-center">
+        <img
+          class="img-fluid"
+          src="../assets/bancoppel.jpg"
+          style="border-radius: 20px; width: 50%"
+          alt="Sorteos LS"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="row shadow p-3 mb-5 bg-body rounded">
+    <div class="col-md-12">
+      <h1 class="text-center p-3" id="faq">
+        FAQ <i class="fas fa-question-circle"></i>
+      </h1>
+    </div>
+  </div>
+  <div class="row mt-5 text-center">
+    <ul>
+      <li class="big-text"><b>¿Cuándo será la rifa?</b></li>
+      <p class="normal-text">
+        La fecha esta por definirse al vender el 70% de los números, pero será
+        en base a la lotería nacional, todo de manera legal 100% transparente y
+        confiable.
+      </p>
+      <li class="big-text">
+        <b>¿Donde están ubicados? </b>
+        <p class="normal-text">
+          Estamos ubicados en Calle base de providencia #1412. Ciudad Obregón,
+          Sonora.
+        </p>
+      </li>
+      <li class="big-text">
+        <b>¿Cómo puedo confiar en ustedes?</b>
+        <p class="normal-text">
+          Contamos con la confianza de muchos clientes satisfechos atendiendolos
+          siempre con respeto y honestidad.
+        </p>
+        <!-- Gallery -->
+        <div class="row">
+          <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+            <img
+              src="../assets/body/ganador1.jpeg"
+              class="w-100 shadow-1-strong rounded mb-4"
+              alt="Boat on Calm Water"
+            />
+
+            <img
+              src="../assets/body/ganador2.jpeg"
+              class="w-100 shadow-1-strong rounded mb-4"
+              alt="Wintry Mountain Landscape"
+            />
+          </div>
+
+          <div class="col-lg-4 mb-4 mb-lg-0">
+            <img
+              src="../assets/body/ganador3.jpeg"
+              class="w-100 shadow-1-strong rounded mb-4"
+              alt="Mountains in the Clouds"
+            />
+
+            <img
+              src="../assets/body/ganador4.jpeg"
+              class="w-100 shadow-1-strong rounded mb-4"
+              alt="Boat on Calm Water"
+            />
+          </div>
+
+          <div class="col-lg-4 mb-4 mb-lg-0">
+            <img
+              src="../assets/body/ganador5.jpeg"
+              class="w-100 shadow-1-strong rounded mb-4"
+              alt="Waves at Sea"
+            />
+
+            <img
+              src="../assets/body/ganador6.jpeg"
+              class="w-100 shadow-1-strong rounded mb-4"
+              alt="Yosemite National Park"
+            />
+          </div>
+        </div>
+        <!-- Gallery -->
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="row shadow p-3 mb-5 bg-body rounded">
+    <div class="col-md-12">
+      <h1 class="text-center p-3" id="about-us">Sobre nosotros</h1>
     </div>
   </div>
   <div class="row">

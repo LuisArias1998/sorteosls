@@ -1,48 +1,62 @@
 $b: .5em;
-.menu-navbar{
-    transition: .5s;
-    
-    border-radius: 2px;
-    border: solid $b rgba(rgb(225, 225, 225), .2);
-}
-.menu-navbar:hover{
-    background-color: rgb(188, 188, 188, 5);
+
+.menu-navbar {
+  transition: .5s;
+
+  border-radius: 2px;
+  border: solid $b rgba(rgb(225, 225, 225), .2);
 }
 
-.w3rcontainer{
-    border: 1px solid 
- #cccfdb;
-    border-radius: 2px;
- } 
- .hover-underline-animation {
-   display: inline-block;
-   position: relative;
-   color: 
- #2b2b2b;
- }
- 
- .hover-underline-animation:after {
-   content: '';
-   position: absolute;
-   width: 100%;
-   transform: scaleX(0);
-   height: 2px;
-   bottom: 0;
-   left: 0;
-   background-color: 
- #2b2b2b;
-   transform-origin: bottom right;
-   transition: transform 0.25s ease-out;
- }
- 
- .hover-underline-animation:hover:after {
-   transform: scaleX(1);
-   transform-origin: bottom left;
- }
- .navbar-background{
+.menu-navbar:hover {
+  background-color: rgb(188, 188, 188, 5);
+}
+
+.w3rcontainer {
+  border: 1px solid #cccfdb;
+  border-radius: 2px;
+}
+
+.hover-underline-animation {
+  display: inline-block;
+  position: relative;
+  color:
+    #2b2b2b;
+}
+
+.hover-underline-animation:after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color:
+    #2b2b2b;
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+
+.hover-underline-animation:hover:after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+.navbar-background {
   background-image: url("../../assets/header/header.png");
- }
- .normal-text{
+}
+
+.normal-text {
   font-size: 18px;
   color: #2b2b2b;
+}
+
+.navsito {
+  //position: fixed;
+  /* Make it stick/fixed */
+  top: 0;
+  /* Stay on top */
+  width: 100%;
+  /* Full width */
+  transition: top 0.3s;
 }

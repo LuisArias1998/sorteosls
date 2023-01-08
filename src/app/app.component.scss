@@ -3,6 +3,11 @@
     color: #2b2b2b;
 }
 
+.big-text {
+    font-size: 24px;
+    color: #2b2b2b;
+}
+
 .boletos-div {
 
     background: green;
@@ -14,3 +19,15 @@
     background-color: rgb(9, 97, 6);
 
 }
+
+.boleto-btn {
+    border-radius: 5px;
+    margin: 1px;
+    color: white;
+    background-color: #1b7400;
+    transition: .5s;
+}
+.boleto-btn:hover{
+    background-color: #114a00;
+}
+

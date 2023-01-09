@@ -8,7 +8,8 @@ import { IBoletos } from '../models/IBoletos';
 })
 export class SendEmailService {
 
-  baseUrl: string = "http://localhost:3200/"
+  //baseUrl: string = "http://localhost:3200/"
+  baseUrl: string = "https://sorteos-ls-service.onrender.com/"
   constructor(private http: HttpClient) { }
 
   async sendEmail(boleto: IBoletos): Promise<any> {

@@ -27,7 +27,7 @@ export class AppComponent implements OnInit {
   }
   onSubmit() {
 
-    console.log(this.contacto.value);
+    //console.log(this.contacto.value);
     this.boletosAOcupar.forEach(bao => {
       this.boletos.forEach(b => {
         if (bao == b.id) {
@@ -39,20 +39,21 @@ export class AppComponent implements OnInit {
 
           this._emailService.postClient(b).then((data) => {
             this._emailService.sendEmail(b).then((data) => {
-              console.log(JSON.stringify(data))
+              //console.log(JSON.stringify(data))
+              Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Número(s) apartado(s)',
+                showConfirmButton: false,
+                timer: 1500
+              })
             }).catch(err => { console.log('Promise send email rejected with: ' + JSON.stringify(err)) })
           }).catch(err => { console.log('Promise add client rejected with: ' + JSON.stringify(err)); })
 
         }
       })
     })
-    Swal.fire({
-      position: 'center',
-      icon: 'success',
-      title: 'Número(s) apartado(s)',
-      showConfirmButton: false,
-      timer: 1500
-    })
+
     this.boletosAOcupar = [];
   }
   setBoleto(boletoSelec: string) {
@@ -65,12 +66,21 @@ export class AppComponent implements OnInit {
         confirmButtonText: 'Aceptar'
       })
     } else {
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: `Boleto #${boletoSelec} seleccionado`,
+        showConfirmButton: false,
+        timer: 1500
+      })
+      this.boletos[parseInt(boletoSelec)].celular='00';
       this.boletosAOcupar.push(boletoSelec)
 
     }
-    console.log(this.boletosAOcupar);
+    //console.log(this.boletosAOcupar);
   }
   removeBoleto(boletoSelec: string) {
+    this.boletos[parseInt(boletoSelec)].celular='';
     this.boletosAOcupar = this.boletosAOcupar.filter(b => b != boletoSelec)
   }
   async ngOnInit() {
@@ -79,7 +89,7 @@ export class AppComponent implements OnInit {
       let numeroBoleto: string = "";
       if (i < 10) {
         numeroBoleto += "00" + i;
-        console.log('object');
+        //console.log('object');
       } else if (i < 100) {
         numeroBoleto += "0" + i
       } else if (i >= 100) {
@@ -92,7 +102,7 @@ export class AppComponent implements OnInit {
     let clients: IBoletos[] = await this._emailService.getClients();
     clients.forEach(c => {
       this.boletos.forEach(b => {
-        if(c.id==b.id){
+        if (c.id == b.id) {
           b.nombre = c.nombre;
           b.celular = c.celular;
           b.municipio_cd = c.municipio_cd;

@@ -1,0 +1,7 @@
+{
+    "/*": {
+        "target": "http://localhost:3000/send_email",
+        "secure": false,
+        "logLevel": "debug"
+    }
+}

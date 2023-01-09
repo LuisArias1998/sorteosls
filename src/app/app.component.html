@@ -7,14 +7,51 @@
       <b>Honda CB190R edición Repsol 2018</b>
     </h2>
   </div>
-  <div class="row">
+  <!-- Gallery -->
+<div class="row">
+  <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
     <img
       src="../../assets/banner/moto3.png"
-      alt="Sorteos LS - Moto"
-      class="img-fluid mx-auto d-block"
-      style="width: 75%"
+      class="w-100 shadow-1-strong rounded mb-4"
+      alt="Boat on Calm Water"
+    />
+
+    <img
+      src="../assets/gallery/moto-gallery1.jpg"
+      class="w-100 shadow-1-strong rounded mb-4"
+      alt="Wintry Mountain Landscape"
     />
   </div>
+
+  <div class="col-lg-4 mb-4 mb-lg-0">
+    <img
+      src="../assets/gallery/moto-gallery2.jpg"
+      class="w-100 shadow-1-strong rounded mb-4"
+      alt="Mountains in the Clouds"
+    />
+
+    <img
+      src="../assets/gallery/moto-gallery3.jpg"
+      class="w-100 shadow-1-strong rounded mb-4"
+      alt="Boat on Calm Water"
+    />
+  </div>
+
+  <div class="col-lg-4 mb-4 mb-lg-0">
+    <img
+      src="../assets/gallery/moto-gallery4.jpg"
+      class="w-100 shadow-1-strong rounded mb-4"
+      alt="Waves at Sea"
+    />
+
+    <img
+      src="../assets/gallery/moto-gallery5.jpg"
+      class="w-100 shadow-1-strong rounded mb-4"
+      alt="Yosemite National Park"
+    />
+  </div>
+</div>
+<!-- Gallery -->
   <div class="row">
     <h3 class="text-center p-2">
       <b>Fecha a definir con el 70% de números vendidos</b>
@@ -64,8 +101,6 @@
     <div class="col-auto" *ngFor="let boleto of boletos; index as i">
       <button
         class="boleto-btn btn-block btn"
-        data-bs-toggle="modal"
-        data-bs-target="#staticBackdrop"
         (click)="setBoleto(boleto.id)"
         [disabled]="boleto.celular"
       >
@@ -74,7 +109,54 @@
     </div>
   </div>
 </div>
-
+<div
+  class="container-fluid"
+  *ngIf="boletosAOcupar.length > 0"
+  style="
+    background-color: gold;
+    max-width: 50%;
+    border-radius: 20px;
+    box-shadow: 10px;
+    display: block;
+  "
+>
+  <div class="text-center">
+    <div class="row mt-2">
+      <div class="col-md-12">
+        <h2 style="color: white">Boleto(s) seleccionados</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <h5 style="color: white">Si desea eliminar un boleto, seleccionelo.</h5>
+      </div>
+    </div>
+    <div class="row pt-3 pb-3">
+      <div
+        class="col-auto col-md-3"
+        *ngFor="let b of boletosAOcupar; index as i"
+      >
+        <button
+          class="boleto-ocupado btn-block btn mt-2"
+          (click)="removeBoleto(b)"
+        >
+          {{ b }}
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 mb-2">
+        <button
+          class="btn btn-block- btn-lg btn-seleccionar"
+          data-bs-toggle="modal"
+          data-bs-target="#staticBackdrop"
+        >
+          Seleccionar boletos
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 <div
   class="modal fade"
   id="staticBackdrop"
@@ -264,7 +346,7 @@
   </div>
 </div>
 
-<div class="container-fluid">
+<div class="container-fluid mt-5">
   <div class="row shadow p-3 mb-5 bg-body rounded">
     <div class="col-md-12">
       <h1 class="text-center p-3" id="metodos-de-pago">Métodos de pago</h1>

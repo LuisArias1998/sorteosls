@@ -47,8 +47,26 @@ export class AppComponent implements OnInit {
                 showConfirmButton: false,
                 timer: 1500
               })
-            }).catch(err => { console.log('Promise send email rejected with: ' + JSON.stringify(err)) })
-          }).catch(err => { console.log('Promise add client rejected with: ' + JSON.stringify(err)); })
+            }).catch(err => {
+              console.log('Promise send email rejected with: ' + JSON.stringify(err))
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Ocurrió un error :(',
+                footer: 'Contáctanos para solucionarlo'
+              })
+            })
+          }).catch(err => {
+            console.log('Promise add client rejected with: ' + JSON.stringify(err));
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Ocurrió un error :(',
+              footer: 'Contáctanos para solucionarlo',
+              confirmButtonColor: '#008000',
+              confirmButtonText: 'Aceptar'
+            })
+          })
 
         }
       })
@@ -73,14 +91,14 @@ export class AppComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500
       })
-      this.boletos[parseInt(boletoSelec)].celular='00';
+      this.boletos[parseInt(boletoSelec)].celular = '00';
       this.boletosAOcupar.push(boletoSelec)
 
     }
     //console.log(this.boletosAOcupar);
   }
   removeBoleto(boletoSelec: string) {
-    this.boletos[parseInt(boletoSelec)].celular='';
+    this.boletos[parseInt(boletoSelec)].celular = '';
     this.boletosAOcupar = this.boletosAOcupar.filter(b => b != boletoSelec)
   }
   async ngOnInit() {

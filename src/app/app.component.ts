@@ -3,6 +3,7 @@ import { IBoletos } from './models/IBoletos';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import Swal from 'sweetalert2'
 import { SendEmailService } from './services/send-email.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -13,9 +14,10 @@ export class AppComponent implements OnInit {
   boletos: IBoletos[] = [];
   contacto: FormGroup;
   boletosAOcupar: string[] = [];
+  messageToSend: string = 'Hey! Me gustaría apartar el boleto con número: ';
+  messageToSendPlural: string = 'Hey! Me gustaría apartar los boletos con números: ';
 
-
-  constructor(private fb: FormBuilder, private _emailService: SendEmailService) {
+  constructor(private fb: FormBuilder, private _emailService: SendEmailService, private router: Router) {
     this.contacto = this.fb.group({
       whatsapp: ['', [Validators.required, Validators.min(1000000000), Validators.max(9999999999)]],
       nombre: ['', Validators.required],
@@ -25,20 +27,28 @@ export class AppComponent implements OnInit {
     })
     this.contacto.controls['whatsapp']
   }
-  onSubmit() {
-
-    //console.log(this.contacto.value);
+ onSubmit() {
+    console.log(this.boletosAOcupar);
+    if (this.boletosAOcupar.length > 1) {
+      this.boletosAOcupar.forEach(b => {
+        this.messageToSendPlural += "[" + b + "] "
+      })
+    } else {
+      this.messageToSend += " [" + this.boletosAOcupar[0] + "] ";
+    }
+    let error: Boolean = false;
     this.boletosAOcupar.forEach(bao => {
-      this.boletos.forEach(b => {
+      this.boletos.forEach(async b => {
         if (bao == b.id) {
+          console.log('lo enconto');
           b.nombre = this.contacto.value.nombre;
           b.celular = this.contacto.value.whatsapp;
           b.municipio_cd = this.contacto.value.municipio_cd;
           b.estado = this.contacto.value.estado;
           b.apellidos = this.contacto.value.apellido;
 
-          this._emailService.postClient(b).then((data) => {
-            this._emailService.sendEmail(b).then((data) => {
+          await this._emailService.postClient(b).then(async (data) => {
+            await this._emailService.sendEmail(b).then((data) => {
               //console.log(JSON.stringify(data))
               Swal.fire({
                 position: 'center',
@@ -48,6 +58,7 @@ export class AppComponent implements OnInit {
                 timer: 1500
               })
             }).catch(err => {
+              error = true;
               console.log('Promise send email rejected with: ' + JSON.stringify(err))
               Swal.fire({
                 icon: 'error',
@@ -55,8 +66,10 @@ export class AppComponent implements OnInit {
                 text: 'Ocurrió un error :(',
                 footer: 'Contáctanos para solucionarlo'
               })
+
             })
           }).catch(err => {
+            error = true;
             console.log('Promise add client rejected with: ' + JSON.stringify(err));
             Swal.fire({
               icon: 'error',
@@ -71,8 +84,10 @@ export class AppComponent implements OnInit {
         }
       })
     })
-
-    this.boletosAOcupar = [];
+    if (!error) {
+      this.boletosAOcupar.length > 1 ? window.open("https://wa.me/5216441597742/?text=" + this.messageToSendPlural) : window.open("https://wa.me/5216441597742/?text=" + this.messageToSend);
+      this.boletosAOcupar = [];
+    }
   }
   setBoleto(boletoSelec: string) {
     if (this.boletosAOcupar.findIndex(b => b == boletoSelec) != -1) {

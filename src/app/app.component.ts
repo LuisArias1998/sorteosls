@@ -27,7 +27,7 @@ export class AppComponent implements OnInit {
     })
     this.contacto.controls['whatsapp']
   }
- onSubmit() {
+  onSubmit() {
     console.log(this.boletosAOcupar);
     if (this.boletosAOcupar.length > 1) {
       this.boletosAOcupar.forEach(b => {
@@ -37,7 +37,7 @@ export class AppComponent implements OnInit {
       this.messageToSend += " [" + this.boletosAOcupar[0] + "] ";
     }
     let error: Boolean = false;
-    this.boletosAOcupar.forEach(bao => {
+    this.boletosAOcupar.forEach(async bao => {
       this.boletos.forEach(async b => {
         if (bao == b.id) {
           console.log('lo enconto');
@@ -48,7 +48,7 @@ export class AppComponent implements OnInit {
           b.apellidos = this.contacto.value.apellido;
 
           await this._emailService.postClient(b).then(async (data) => {
-            await this._emailService.sendEmail(b).then((data) => {
+            await this._emailService.sendEmail(b).then(async (data) => {
               //console.log(JSON.stringify(data))
               Swal.fire({
                 position: 'center',

@@ -15,8 +15,7 @@
   <div class="row">
     <div class="boletos-div">
       <h2 class="text-center p-2">
-        <b
-          >1 x $89 <br />
+        <b>1 x $89 <br />
           2 x $150 <br />
           3 x $230 <br />
           4 x $310 <br />
@@ -41,17 +40,11 @@
 </div>
 <!-- Button trigger modal -->
 <div class="container-fluid bg-image" style="background-image: url(../assets/sorteos-ls-big-opac.png);">
-  <div
-    class="container-fluid text-center p-5"
-    style="max-width: 720px; display: block"
-  >
+  <div class="container-fluid text-center p-5" style="max-width: 720px; display: block">
     <div class="row pt-3 pb-3">
       <div class="col-auto" *ngFor="let boleto of boletos; index as i">
-        <button
-          class="boleto-btn btn-block btn"
-          (click)="setBoleto(boleto.id)"
-          [disabled]="boleto.celular"
-        >
+        <button class="boleto-btn btn-block btn" (click)="setBoleto(boleto.id)" [disabled]="boleto.celular"
+          [ngClass]="{'btn-disable':boleto.celular}">
           {{ boleto.id }}
         </button>
       </div>
@@ -60,43 +53,26 @@
 </div>
 <div class="row">
   <h4 class="text-center p-2" style="color: rgb(190, 163, 14)">
-    <b
-      >Una vez realizado tu pago ¡no olvides enviar a nuestro whatsapp tu
-      comprobante!</b
-    >
+    <b>Una vez realizado tu pago ¡no olvides enviar a nuestro whatsapp tu
+      comprobante!</b>
   </h4>
 </div>
 <div class="row">
   <h3 class="text-center p-2" style="color: green">
-    <a
-      class="btn btn-link btn-floating btn-lg text-dark m-1"
-      href="https://wa.me/5216441597742"
-      role="button"
-      target="_blank"
-      data-mdb-ripple-color="dark"
-      ><i class="fab fa-whatsapp fa-2x footer-icons-wh"></i></a
-    ><b><i>644 159 7742</i></b
-    ><a
-      class="btn btn-link btn-floating btn-lg text-dark m-1"
-      href="https://wa.me/5216441597742"
-      role="button"
-      target="_blank"
-      data-mdb-ripple-color="dark"
-      ><i class="fab fa-whatsapp fa-2x footer-icons-wh"></i
-    ></a>
+    <a class="btn btn-link btn-floating btn-lg text-dark m-1" href="https://wa.me/5216441597742" role="button"
+      target="_blank" data-mdb-ripple-color="dark"><i class="fab fa-whatsapp fa-2x footer-icons-wh"></i></a><b><i>644
+        159 7742</i></b><a class="btn btn-link btn-floating btn-lg text-dark m-1" href="https://wa.me/5216441597742"
+      role="button" target="_blank" data-mdb-ripple-color="dark"><i
+        class="fab fa-whatsapp fa-2x footer-icons-wh"></i></a>
   </h3>
 </div>
-<div
-  class="container-fluid"
-  *ngIf="boletosAOcupar.length > 0"
-  style="
+<div class="container-fluid" *ngIf="boletosAOcupar.length > 0" style="
     background-color: gold;
     max-width: 50%;
     border-radius: 20px;
     box-shadow: 10px;
     display: block;
-  "
->
+  ">
   <div class="text-center">
     <div class="row mt-2">
       <div class="col-md-12">
@@ -109,143 +85,80 @@
       </div>
     </div>
     <div class="row pt-3 pb-3">
-      <div
-        class="col-auto col-md-3"
-        *ngFor="let b of boletosAOcupar; index as i"
-      >
-        <button
-          class="boleto-ocupado btn-block btn mt-2"
-          (click)="removeBoleto(b)"
-        >
+      <div class="col-auto col-md-3" *ngFor="let b of boletosAOcupar; index as i">
+        <button class="boleto-ocupado btn-block btn mt-2" (click)="removeBoleto(b)">
           {{ b }}
         </button>
       </div>
     </div>
     <div class="row">
       <div class="col-md-12 mb-2">
-        <button
-          class="btn btn-block- btn-lg btn-seleccionar"
-          data-bs-toggle="modal"
-          data-bs-target="#staticBackdrop"
-        >
+        <button class="btn btn-block- btn-lg btn-seleccionar" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
           Seleccionar boletos
         </button>
       </div>
     </div>
   </div>
 </div>
-<div
-  class="modal fade"
-  id="staticBackdrop"
-  data-bs-backdrop="static"
-  data-bs-keyboard="false"
-  tabindex="-1"
-  aria-labelledby="staticBackdropLabel"
-  aria-hidden="true"
->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1
-          class="modal-title fs-5"
-          id="staticBackdropLabel"
-          style="width: 150%"
-        >
+        <h1 class="modal-title fs-5" id="staticBackdropLabel" style="width: 150%">
           ¡Aparte su boleto!
         </h1>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form [formGroup]="contacto" novalidate>
           <div class="form-group">
             <div class="row">
               <div class="col-md-12 mt-2">
-                <input
-                  class="form-control"
-                  type="number"
-                  required
-                  formControlName="whatsapp"
-                  placeholder="Número de Whatsapp (10 digitos)"
-                  name="whatsapp"
-                />
+                <input class="form-control" type="number" required formControlName="whatsapp"
+                  placeholder="Número de Whatsapp (10 digitos)" name="whatsapp" />
               </div>
             </div>
             <div class="row">
               <div class="col-md-12">
                 <div
                   *ngIf="contacto.get('whatsapp')?.touched && (contacto.get('whatsapp')?.errors?.['min'] || contacto.get('whatsapp')?.errors?.['max'])"
-                  class="alert alert-danger mt-2"
-                  style="font-size: 12px; height: 60%"
-                >
+                  class="alert alert-danger mt-2" style="font-size: 12px; height: 60%">
                   Deben ser 10 dígitos
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col-md-6 col-xs-6 col-sm-6 mt-2">
-                <input
-                  type="text"
-                  class="form-control"
-                  required
-                  formControlName="nombre"
-                  placeholder="Nombre(s)"
-                  name="nombre"
-                />
+                <input type="text" class="form-control" required formControlName="nombre" placeholder="Nombre(s)"
+                  name="nombre" />
               </div>
               <div class="col-md-6 col-xs-6 col-sm-6 mt-2">
-                <input
-                  type="text"
-                  class="form-control"
-                  required
-                  formControlName="apellido"
-                  placeholder="Apellido(s)"
-                  name="apellido"
-                />
+                <input type="text" class="form-control" required formControlName="apellido" placeholder="Apellido(s)"
+                  name="apellido" />
               </div>
             </div>
             <div class="row">
               <div class="col-md-6 col-xs-6 col-sm-6 mt-2">
-                <div
-                  *ngIf="contacto.get('nombre')?.touched && contacto.get('nombre')?.errors?.['required']"
-                  class="alert alert-danger"
-                  role="alert"
-                  style="font-size: 12px; height: 60%"
-                >
+                <div *ngIf="contacto.get('nombre')?.touched && contacto.get('nombre')?.errors?.['required']"
+                  class="alert alert-danger" role="alert" style="font-size: 12px; height: 60%">
                   Favor de ingresar su nombre
                 </div>
               </div>
               <div class="col-md-6 col-xs-6 col-sm-6 mt-2">
-                <div
-                  *ngIf="contacto.get('apellido')?.touched && contacto.get('apellido')?.errors?.['required']"
-                  class="alert alert-danger"
-                  style="font-size: 12px; height: 60%"
-                >
+                <div *ngIf="contacto.get('apellido')?.touched && contacto.get('apellido')?.errors?.['required']"
+                  class="alert alert-danger" style="font-size: 12px; height: 60%">
                   Favor de ingresar su apellido
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col-md-6 col-xs-6 col-sm-6 mt-2">
-                <input
-                  class="form-control"
-                  type="text"
-                  required
-                  formControlName="municipio_cd"
-                  placeholder="Municipio/Ciudad"
-                  name="municipio_cd"
-                />
+                <input class="form-control" type="text" required formControlName="municipio_cd"
+                  placeholder="Municipio/Ciudad" name="municipio_cd" />
               </div>
               <div class="col-md-6 col-xs-6 col-sm-6 mt-2">
-                <select
-                  class="form-select"
-                  aria-label="Estado"
-                  formControlName="estado"
-                >
+                <select class="form-select" aria-label="Estado" formControlName="estado">
                   <option value="">Seleccione su estado</option>
                   <option value="MEX">Estado de México</option>
                   <option value="AGS">Aguascalientes</option>
@@ -284,21 +197,14 @@
             </div>
             <div class="row">
               <div class="col-md-6 col-xs-6 col-sm-6 mt-2">
-                <div
-                  *ngIf="contacto.get('municipio_cd')?.touched && contacto.get('municipio_cd')?.errors?.['required']"
-                  class="alert alert-danger"
-                  role="alert"
-                  style="font-size: 12px; height: 60%"
-                >
+                <div *ngIf="contacto.get('municipio_cd')?.touched && contacto.get('municipio_cd')?.errors?.['required']"
+                  class="alert alert-danger" role="alert" style="font-size: 12px; height: 60%">
                   Favor de ingresar su municipio
                 </div>
               </div>
               <div class="col-md-6 col-xs-6 col-sm-6 mt-2">
-                <div
-                  *ngIf="contacto.get('estado')?.touched && contacto.get('estado')?.errors?.['maxlength']"
-                  class="alert alert-danger"
-                  style="font-size: 12px; height: 60%"
-                >
+                <div *ngIf="contacto.get('estado')?.touched && contacto.get('estado')?.errors?.['maxlength']"
+                  class="alert alert-danger" style="font-size: 12px; height: 60%">
                   Seleccionar estado válido
                 </div>
               </div>
@@ -307,15 +213,8 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button
-          type="submit"
-          class="btn boleto-btn btn-lg"
-          [disabled]="contacto.invalid"
-          style="width: 150%"
-          (click)="onSubmit()"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        >
+        <button type="submit" class="btn boleto-btn btn-lg" [disabled]="contacto.invalid" style="width: 150%"
+          (click)="onSubmit()" data-bs-dismiss="modal" aria-label="Close">
           Aceptar
         </button>
       </div>

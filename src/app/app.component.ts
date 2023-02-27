@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DoCheck, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { IBoletos } from './models/IBoletos';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import Swal from 'sweetalert2'
@@ -9,13 +9,14 @@ import { Router } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, DoCheck {
   title = 'sorteos-ls';
   boletos: IBoletos[] = [];
   contacto: FormGroup;
   boletosAOcupar: string[] = [];
   messageToSend: string = 'Hey! Me gustaría apartar el boleto con número: ';
   messageToSendPlural: string = 'Hey! Me gustaría apartar los boletos con números: ';
+  isConnected: boolean = false;
 
   constructor(private fb: FormBuilder, private _emailService: SendEmailService, private router: Router) {
     this.contacto = this.fb.group({
@@ -26,6 +27,55 @@ export class AppComponent implements OnInit {
       estado: ['', [Validators.required, Validators.maxLength(20)]]
     })
     this.contacto.controls['whatsapp']
+  }
+  async ngDoCheck() {
+    if (!this.isConnected) {
+      let clients: IBoletos[] = await this._emailService.getClients();
+      if (clients) {
+        clients.forEach(c => {
+          this.boletos.forEach(b => {
+            if (c.id == b.id) {
+              b.nombre = c.nombre;
+              b.celular = c.celular;
+              b.municipio_cd = c.municipio_cd;
+              b.estado = c.estado;
+              b.apellidos = c.apellidos;
+            }
+          })
+        })
+        this.isConnected = true;
+      }
+    }
+  }
+  async ngOnInit() {
+    for (let i: number = 0; i < 1000; i++) {
+      let numeroBoleto: string = "";
+      if (i < 10) {
+        numeroBoleto += "00" + i;
+      } else if (i < 100) {
+        numeroBoleto += "0" + i
+      } else if (i >= 100) {
+        numeroBoleto += i + ""
+      }
+      let boleto: IBoletos = {} as IBoletos;
+      boleto.id = numeroBoleto;
+      this.boletos.push(boleto)
+    }
+    let clients: IBoletos[] = await this._emailService.getClients();
+    if (clients) {
+      clients.forEach(c => {
+        this.boletos.forEach(b => {
+          if (c.id == b.id) {
+            b.nombre = c.nombre;
+            b.celular = c.celular;
+            b.municipio_cd = c.municipio_cd;
+            b.estado = c.estado;
+            b.apellidos = c.apellidos;
+          }
+        })
+      })
+      this.isConnected = true;
+    }
   }
   onSubmit() {
     console.log(this.boletosAOcupar);
@@ -116,35 +166,7 @@ export class AppComponent implements OnInit {
     this.boletos[parseInt(boletoSelec)].celular = '';
     this.boletosAOcupar = this.boletosAOcupar.filter(b => b != boletoSelec)
   }
-  async ngOnInit() {
-    //this.boletos[0].id="001"
-    for (let i: number = 0; i < 1000; i++) {
-      let numeroBoleto: string = "";
-      if (i < 10) {
-        numeroBoleto += "00" + i;
-        //console.log('object');
-      } else if (i < 100) {
-        numeroBoleto += "0" + i
-      } else if (i >= 100) {
-        numeroBoleto += i + ""
-      }
-      let boleto: IBoletos = {} as IBoletos;
-      boleto.id = numeroBoleto;
-      this.boletos.push(boleto)
-    }
-    let clients: IBoletos[] = await this._emailService.getClients();
-    clients.forEach(c => {
-      this.boletos.forEach(b => {
-        if (c.id == b.id) {
-          b.nombre = c.nombre;
-          b.celular = c.celular;
-          b.municipio_cd = c.municipio_cd;
-          b.estado = c.estado;
-          b.apellidos = c.apellidos;
-        }
-      })
-    })
-  }
+
 
 
 }
